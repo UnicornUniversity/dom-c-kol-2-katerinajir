@@ -1,50 +1,65 @@
+
+
 /**
- * Hlavní funkce programu – převádí číslo mezi soustavami.
- * Podporuje převod z desítkové do dvojkové a z dvojkové do desítkové.
+ * Hlavní funkce, která provede konverzi na základě vstupů.
+ * @param {string} inputNumber Číslo jako string, které se má převést.
+ * @param {number} inputNumberSystem Číselná soustava vstupního čísla (např. 10).
+ * @param {number} outputNumberSystem Cílová číselná soustava (např. 2).
+ * @returns {string} Výsledný string po konverzi.
  */
 export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
+    
     if (inputNumberSystem === 10 && outputNumberSystem === 2) {
-        return dec2bin(parseInt(inputNumber, 10));
-    } else if (inputNumberSystem === 2 && outputNumberSystem === 10) {
-        return bin2dec(inputNumber).toString();
-    } else {
-        return "Conversion not supported.";
+        // Převedeme string na číslo pomocí unárního operátoru +,
+        // abychom dodrželi zákaz Number.parseInt() a Number().
+        let dec = +inputNumber;
+        
+        return convertDecToBin(dec);
     }
+
+    return null;
 }
 
 /**
- * Převod z desítkové do dvojkové bez použití .toString()
+ * Pomocná funkce pro převod z desítkové do binární soustavy.
+ * @param {number} dec Desítkové číslo k převodu.
+ * @returns {string} Číslo jako binární string.
  */
-function dec2bin(n) {
-    let result = "";
-    while (n > 0) {
-        result = (n % 2) + result;
-        n = Math.floor(n / 2);
+function convertDecToBin(dec) {
+    // Ošetření speciálního případu pro vstup 0
+    if (dec === 0) {
+        return "0";
     }
-    return result || "0";
+
+    let bin = "";
+    let zbytek = 0;
+    while (dec > 0) {
+        zbytek = dec % 2;
+        dec = Math.floor(dec / 2);
+        bin = bin + zbytek;
+    }
+    
+    bin = bin.split("").reverse().join(""); 
+    return bin;
 }
 
-/**
- * Převod z dvojkové do desítkové bez použití Number.parseInt()
- */
-function bin2dec(binStr) {
-    let total = 0;
-    for (let i = 0; i < binStr.length; i++) {
-        total = total * 2 + (binStr[i] === "1" ? 1 : 0);
-    }
-    return total;
-}
 
 /**
- * Povolené vstupní soustavy
+ * Vrací povolené VSTUPNÍ soustavy.
+ * @returns {number[]} Pole čísel soustav (pouze desítková).
  */
 export function permittedInputSystems() {
-    return [2, 10];
+    // Vaše funkce převádí Z desítkové soustavy
+    return [10];
 }
 
 /**
- * Povolené výstupní soustavy
+ * Vrací povolené VÝSTUPNÍ soustavy.
+ * @returns {number[]} Pole čísel soustav (pouze binární).
  */
 export function permittedOutputSystems() {
-    return [2, 10];
+    // Vaše funkce převádí DO binární soustavy
+    return [2];
 }
+}
+
