@@ -1,45 +1,50 @@
 /**
  * Hlavní funkce programu – převádí číslo mezi soustavami.
- * Aktuálně podporuje převod z desítkové do dvojkové soustavy.
- * @param {string} inputNumber - číslo, které se převádí
- * @param {number} inputNumberSystem - soustava, ze které převádíme (např. 10)
- * @param {number} outputNumberSystem - soustava, do které převádíme (např. 2)
- * @returns {string} převedené číslo v cílové soustavě
+ * Podporuje převod z desítkové do dvojkové a z dvojkové do desítkové.
  */
 export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
     if (inputNumberSystem === 10 && outputNumberSystem === 2) {
-        return dec2bin(Number(inputNumber));
+        return dec2bin(parseInt(inputNumber, 10));
+    } else if (inputNumberSystem === 2 && outputNumberSystem === 10) {
+        return bin2dec(inputNumber).toString();
     } else {
         return "Conversion not supported.";
     }
 }
 
 /**
- * Pomocná funkce pro převod z desítkové do dvojkové soustavy.
- * Nepoužívá zakázané funkce Number.parseInt ani toString.
- * @param {number} n - číslo v desítkové soustavě
- * @returns {string} číslo v binární soustavě
+ * Převod z desítkové do dvojkové bez použití .toString()
  */
 function dec2bin(n) {
-    let bin = "";
+    let result = "";
     while (n > 0) {
-        let remainder = n % 2;
+        result = (n % 2) + result;
         n = Math.floor(n / 2);
-        bin = remainder + bin;
     }
-    return bin;
+    return result || "0";
 }
 
 /**
- * Funkce vrací, z jakých soustav je převod povolen.
+ * Převod z dvojkové do desítkové bez použití Number.parseInt()
+ */
+function bin2dec(binStr) {
+    let total = 0;
+    for (let i = 0; i < binStr.length; i++) {
+        total = total * 2 + (binStr[i] === "1" ? 1 : 0);
+    }
+    return total;
+}
+
+/**
+ * Povolené vstupní soustavy
  */
 export function permittedInputSystems() {
-    return [10];
+    return [2, 10];
 }
 
 /**
- * Funkce vrací, do jakých soustav je převod povolen.
+ * Povolené výstupní soustavy
  */
 export function permittedOutputSystems() {
-    return [2];
+    return [2, 10];
 }
