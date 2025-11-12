@@ -1,7 +1,3 @@
-//TODO add imports if needed
-//import { exMain } from "./exclude/exampleAss2.js"
-//TODO add/change doc as needed
-
 /**
  * Main function that converts a number from one numeral system to another.
  * @param {string} inputNumber - number that is being converted
@@ -38,20 +34,10 @@ function convertDecToBin(dec) {
     return bin;
 }
 
-/**
- * TODO – Change this to contain all input number systems that your application can convert from.
- * Function which returns which number systems are permitted on input.
- * @returns {Array} array of numbers referring to permitted input systems
- */
 export function permittedInputSystems() {
     return [10];
 }
 
-/**
- * TODO – Change this to contain all output number systems that your application can convert to.
- * Function which returns which number systems are permitted on output.
- * @returns {Array} array of numbers referring to permitted output systems
- */
 export function permittedOutputSystems() {
     return [2];
 }
