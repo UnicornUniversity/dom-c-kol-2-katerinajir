@@ -1,35 +1,45 @@
-//TODO add imports if needed
-//import { exMain } from "./exclude/exampleAss2.js"
-//TODO add/change doc as needed
 /**
- * TODO - Write functional code for this application. You can call any other function, but usage of ".toString(numberSystem)" and "Number.parseInt(number, numberSystem)" is forbidden (only permitted when used on individual digits).
- * The main function which calls the application. 
- * TODO - Please, add specific description here for the application purpose.
- * @param {string} inputNumber number that is being converted
- * @param {number} inputNumberSystem numerical system that the inputNumber is being converted from
- * @param {number} outputNumberSystem numerical system that the inputNumber is being converted into
- * @returns {string} containing number converted to output system
+ * Hlavní funkce programu – převádí číslo mezi soustavami.
+ * Aktuálně podporuje převod z desítkové do dvojkové soustavy.
+ * @param {string} inputNumber - číslo, které se převádí
+ * @param {number} inputNumberSystem - soustava, ze které převádíme (např. 10)
+ * @param {number} outputNumberSystem - soustava, do které převádíme (např. 2)
+ * @returns {string} převedené číslo v cílové soustavě
  */
 export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
-  //TODO code
-  //let dtoOut = exMain(inputNumber, inputNumberSystem, outputNumberSystem);
-  return dtoOut;
+    if (inputNumberSystem === 10 && outputNumberSystem === 2) {
+        return dec2bin(Number(inputNumber));
+    } else {
+        return "Conversion not supported.";
+    }
 }
 
 /**
- * TODO - Change this to contain all input number systems that your application can convert from.
- * Function which returns which number systems are permitted on input.
- * @returns {Array} array of numbers refering to permitted input systems
+ * Pomocná funkce pro převod z desítkové do dvojkové soustavy.
+ * Nepoužívá zakázané funkce Number.parseInt ani toString.
+ * @param {number} n - číslo v desítkové soustavě
+ * @returns {string} číslo v binární soustavě
+ */
+function dec2bin(n) {
+    let bin = "";
+    while (n > 0) {
+        let remainder = n % 2;
+        n = Math.floor(n / 2);
+        bin = remainder + bin;
+    }
+    return bin;
+}
+
+/**
+ * Funkce vrací, z jakých soustav je převod povolen.
  */
 export function permittedInputSystems() {
-	return [10, 2];
+    return [10];
 }
 
 /**
- * TODO - Change this to contain all output number systems that your application can convert to.
- * Function which returns which number systems are permitted on output.
- * @returns {Array} array of numbers refering to permitted output systems
+ * Funkce vrací, do jakých soustav je převod povolen.
  */
 export function permittedOutputSystems() {
-	return [10, 2];
+    return [2];
 }
