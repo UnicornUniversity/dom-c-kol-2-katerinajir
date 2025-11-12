@@ -7,7 +7,7 @@
  * @param {number} outputNumberSystem Cílová číselná soustava (např. 2).
  * @returns {string} Výsledný string po konverzi.
  */
-export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
+function main(inputNumber, inputNumberSystem, outputNumberSystem) {
     
     if (inputNumberSystem === 10 && outputNumberSystem === 2) {
         // Převedeme string na číslo pomocí unárního operátoru +,
@@ -48,7 +48,7 @@ function convertDecToBin(dec) {
  * Vrací povolené VSTUPNÍ soustavy.
  * @returns {number[]} Pole čísel soustav (pouze desítková).
  */
-export function permittedInputSystems() {
+function permittedInputSystems() {
     // Vaše funkce převádí Z desítkové soustavy
     return [10];
 }
@@ -57,9 +57,16 @@ export function permittedInputSystems() {
  * Vrací povolené VÝSTUPNÍ soustavy.
  * @returns {number[]} Pole čísel soustav (pouze binární).
  */
-export function permittedOutputSystems() {
+function permittedOutputSystems() {
     // Vaše funkce převádí DO binární soustavy
     return [2];
 }
-}
 
+// Zde je klíčová změna:
+// Exportujeme všechny funkce najednou pomocí module.exports,
+// kterému testovací systém rozumí.
+module.exports = {
+    main,
+    permittedInputSystems,
+    permittedOutputSystems
+};
