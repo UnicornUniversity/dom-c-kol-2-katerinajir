@@ -1,10 +1,7 @@
-/*
- * UCO: 
- * NAME: 
- */
+
 
 /**
- * Hlavní funkce, která provede konverzi na základě vstupů.
+ * Hlavní funkce, která provede konverzi na základě vstupů..
  * @param {string} inputNumber Číslo jako string, které se má převést.
  * @param {number} inputNumberSystem Číselná soustava vstupního čísla (např. 10).
  * @param {number} outputNumberSystem Cílová číselná soustava (např. 2).
