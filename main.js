@@ -1,4 +1,7 @@
-
+/*
+ * UCO: 
+ * NAME: 
+ */
 
 /**
  * Hlavní funkce, která provede konverzi na základě vstupů.
