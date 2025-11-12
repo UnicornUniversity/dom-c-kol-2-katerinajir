@@ -1,75 +1,58 @@
- /**
- * Hlavní funkce, která provede konverzi na základě vstupů...
- * @param {string} inputNumber Číslo jako string, které se má převést.
- * @param {number} inputNumberSystem Číselná soustava vstupního čísla (např. 10).
- * @param {number} outputNumberSystem Cílová číselná soustava (např. 2).
- * @returns {string} Výsledný string po konverzi.
+//TODO add imports if needed
+//import { exMain } from "./exclude/exampleAss2.js"
+//TODO add/change doc as needed
+
+/**
+ * Main function that converts a number from one numeral system to another.
+ * @param {string} inputNumber - number that is being converted
+ * @param {number} inputNumberSystem - numeral system of the input number
+ * @param {number} outputNumberSystem - numeral system to convert into
+ * @returns {string} - converted number as a string
  */
-function main(inputNumber, inputNumberSystem, outputNumberSystem) {
-    
-    if (inputNumberSystem === 10 && outputNumberSystem === 2) {
-        // Převedeme string na číslo pomocí unárního operátoru +,
-        // abychom dodrželi zákaz Number.parseInt() a Number().
+
+export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
+ if (inputNumberSystem === 10 && outputNumberSystem === 2) {
+  
         let dec = +inputNumber;
         
         return convertDecToBin(dec);
     }
 
-    // Vrací null pro nepodporované konverze
     return null;
 }
-
-/**
- * Pomocná funkce pro převod z desítkové do binární soustavy.
- * Optimalizovaná verze (nepotřebuje reverzaci pole)
- * @param {number} dec Desítkové číslo k převodu.
- * @returns {string} Číslo jako binární string.
- */
 function convertDecToBin(dec) {
-    // 1. Ošetření pro nulu
+    // Ošetření speciálního případu pro vstup 0
     if (dec === 0) {
         return "0";
     }
-    
-    // Používáme absolutní hodnotu, předpokládáme kladné vstupy podle zadání.
-    let absDec = Math.abs(dec);
 
     let bin = "";
-    
-    // Algoritmus dělení se zbytkem
-    while (absDec > 0) {
-        let zbytek = absDec % 2;
-        absDec = Math.floor(absDec / 2);
-        
-        // Nový bit se přidává na ZAČÁTEK řetězce,
-        // což nahrazuje volání .reverse() na konci.
-        bin = zbytek + bin; 
+    let zbytek = 0;
+    while (dec > 0) {
+        zbytek = dec % 2;
+        dec = Math.floor(dec / 2);
+        bin = bin + zbytek;
     }
     
-    // Vracíme pouze binární string (záporné vstupy ignorujeme/nepodporujeme)
+    bin = bin.split("").reverse().join(""); 
     return bin;
 }
 
-
 /**
- * Vrací povolené VSTUPNÍ soustavy.
- * @returns {number[]} Pole čísel soustav (pouze desítková).
+ * TODO – Change this to contain all input number systems that your application can convert from.
+ * Function which returns which number systems are permitted on input.
+ * @returns {Array} array of numbers referring to permitted input systems
  */
-function permittedInputSystems() {
+export function permittedInputSystems() {
     return [10];
 }
 
 /**
- * Vrací povolené VÝSTUPNÍ soustavy.
- * @returns {number[]} Pole čísel soustav (pouze binární).
+ * TODO – Change this to contain all output number systems that your application can convert to.
+ * Function which returns which number systems are permitted on output.
+ * @returns {Array} array of numbers referring to permitted output systems
  */
-function permittedOutputSystems() {
+export function permittedOutputSystems() {
     return [2];
 }
 
-// Export pro CommonJS (aby systém testů rozuměl)
-module.exports = {
-    main,
-    permittedInputSystems,
-    permittedOutputSystems
-};
