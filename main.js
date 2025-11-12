@@ -1,7 +1,5 @@
-
-
-/**
- * Hlavní funkce, která provede konverzi na základě vstupů..
+ /**
+ * Hlavní funkce, která provede konverzi na základě vstupů...
  * @param {string} inputNumber Číslo jako string, které se má převést.
  * @param {number} inputNumberSystem Číselná soustava vstupního čísla (např. 10).
  * @param {number} outputNumberSystem Cílová číselná soustava (např. 2).
@@ -17,29 +15,38 @@ function main(inputNumber, inputNumberSystem, outputNumberSystem) {
         return convertDecToBin(dec);
     }
 
+    // Vrací null pro nepodporované konverze
     return null;
 }
 
 /**
  * Pomocná funkce pro převod z desítkové do binární soustavy.
+ * Optimalizovaná verze (nepotřebuje reverzaci pole)
  * @param {number} dec Desítkové číslo k převodu.
  * @returns {string} Číslo jako binární string.
  */
 function convertDecToBin(dec) {
-    // Ošetření speciálního případu pro vstup 0
+    // 1. Ošetření pro nulu
     if (dec === 0) {
         return "0";
     }
+    
+    // Používáme absolutní hodnotu, předpokládáme kladné vstupy podle zadání.
+    let absDec = Math.abs(dec);
 
     let bin = "";
-    let zbytek = 0;
-    while (dec > 0) {
-        zbytek = dec % 2;
-        dec = Math.floor(dec / 2);
-        bin = bin + zbytek;
+    
+    // Algoritmus dělení se zbytkem
+    while (absDec > 0) {
+        let zbytek = absDec % 2;
+        absDec = Math.floor(absDec / 2);
+        
+        // Nový bit se přidává na ZAČÁTEK řetězce,
+        // což nahrazuje volání .reverse() na konci.
+        bin = zbytek + bin; 
     }
     
-    bin = bin.split("").reverse().join(""); 
+    // Vracíme pouze binární string (záporné vstupy ignorujeme/nepodporujeme)
     return bin;
 }
 
@@ -49,7 +56,6 @@ function convertDecToBin(dec) {
  * @returns {number[]} Pole čísel soustav (pouze desítková).
  */
 function permittedInputSystems() {
-    // Vaše funkce převádí Z desítkové soustavy
     return [10];
 }
 
@@ -58,13 +64,10 @@ function permittedInputSystems() {
  * @returns {number[]} Pole čísel soustav (pouze binární).
  */
 function permittedOutputSystems() {
-    // Vaše funkce převádí DO binární soustavy
     return [2];
 }
 
-// Zde je klíčová změna:
-// Exportujeme všechny funkce najednou pomocí module.exports,
-// kterému testovací systém rozumí.
+// Export pro CommonJS (aby systém testů rozuměl)
 module.exports = {
     main,
     permittedInputSystems,
