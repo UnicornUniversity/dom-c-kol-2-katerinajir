@@ -1,15 +1,15 @@
 /**
- * Main function that converts a number from one numeral system to another.
- * @param {string} inputNumber - number that is being converted
- * @param {number} inputNumberSystem - numeral system of the input number
- * @param {number} outputNumberSystem - numeral system to convert into
- * @returns {string} - converted number as a string
+ * Main function, která převádí číslo z jedné číslené soustavy do jiné..
+ * @param {string} inputNumber - číslo, které se převádí
+ * @param {number} inputNumberSystem - číselná soustava převáděného čísla
+ * @param {number} outputNumberSystem - číselná soustava, do které se číslo převádí
+ * @returns {string} - převedené číslo jako string 
  */
 
 export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
  if (inputNumberSystem === 10 && outputNumberSystem === 2) {
   
-        let dec = +inputNumber;
+        let dec = +inputNumber; //Unární plus, převede string na číslo
         
         return convertDecToBin(dec);
     }
@@ -22,16 +22,15 @@ function convertDecToBin(dec) {
         return "0";
     }
 
-    let bin = "";
+    let bin = ""; 
     let zbytek = 0;
-    while (dec > 0) {
-        zbytek = dec % 2;
-        dec = Math.floor(dec / 2);
-        bin = bin + zbytek;
+    while (dec > 0) { //Dokud je převáděné číslo vetší než 0 tato smyčka se bude opakovat
+        zbytek = dec % 2; //Převáděné číslo se vydělí dvěma a uloží se zbytek
+        dec = Math.floor(dec / 2) //Číslo vydělené dvěma se zaokrouhlí dolů (pro dělení v následujícím cyklu)
+        bin = zbytek + bin; //Zbytek se uloží na začátek a k němu co už v bin máme 
     }
-    
-    bin = bin.split("").reverse().join(""); 
-    return bin;
+     
+    return bin; //Vrácení kompletního převedeného čísla
 }
 
 export function permittedInputSystems() {
